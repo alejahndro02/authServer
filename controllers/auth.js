@@ -5,7 +5,9 @@ const {response} = require('express')
 // Se separa la logica del archivo de routes
 
  const crearUsuario = (req, res=response)=> {
-    console.log(res);
+     // Se capturan los datos del req.body
+     const {nombre, correo, contrasena} = req.body
+     console.log(correo,nombre, contrasena);
     // Retorna la respuesta como json
     return res.json({
         ok: true,
@@ -14,6 +16,8 @@ const {response} = require('express')
 }
 
 const loginUsuario=(req, res=response)=> {
+    const { correo, contrasena} = req.body
+    console.log(correo, contrasena);
     // Retorna la respuesta como json
     return res.json({
         ok: true,
