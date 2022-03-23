@@ -1,20 +1,24 @@
 const express = require ('express');
 const cors    = require('cors');
 
+    // Configuracion de dotenv
+require('dotenv').config()
 
-// Servicor Express
- const app = express()
+    // Constante con el puesrto proveniente de env
+const port = process.env.PORT;
+
+    // Servicor Express
+const app = express()
  
-//  Cors
+    //  Cors
 app.use(cors());
 
-// Lecturaa y parseo del body
-
+    // Lecturaa y parseo del body
 app.use(express.json());
 
-//Definicion de la ruta raiz, importando las rutas hijas desde auth.js
+    //Definicion de la ruta raiz, importando las rutas hijas desde auth.js
 app.use('/api/auth', require('./routes/auth'))
 
- app.listen(4000, () => {
-     console.log(`Servidor corriendo por el perto ${4000}`);
+ app.listen(port, () => {
+     console.log(`Servidor corriendo por el puerto ${port}`);
  })
