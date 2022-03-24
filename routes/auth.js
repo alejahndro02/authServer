@@ -9,21 +9,21 @@ const router= Router();
     // Se crea nuevo usuario
 router.post('/new', crearUsuario)
 
-    // Login de Usuario
+    // Login de Usuario post(ruta, middlewares, controlador) 
       //Con el metodo check se evalua que se envie el dato correspondiente  
-router.post('/', 
-    [
+router.post('/',[
+
             //con el metodo check y el metodo isEmail se evalua si el campo es un email
+        //     check(a-Evaluar, mensaje-Mostrar, )
         check('email', 'El email es obliatorio').isEmail(),
 
            /*con el metodo check y el metodo isLength se evalua si el campo tiene un a longitud minima de 6 caracteres*/
         check('password', 'La contraseña es obliatoria').isLength({min:6})
-    ],
-    loginUsuario
-)
+    ],loginUsuario)
+
 
 // Validar y revalidar el token
-router.get('/renew', renovarToken)
+router.get('/newToken', renovarToken)
 
 // Forma de exortar 
 module.exports=router
