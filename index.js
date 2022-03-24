@@ -9,6 +9,9 @@ const port = process.env.PORT;
 
     // Servicor Express
 const app = express()
+
+    // Directorio publico
+app.use(express.static('public'))
  
     //  Cors
 app.use(cors());
