@@ -15,7 +15,8 @@ const {response} = require('express')
 }
 
 const loginUsuario=(req, res=response)=> {
-    const { correo, contrasena} = req.body
+    // Se desctructura el req.body
+    const { email, password } = req.body
     // Retorna la respuesta como json
     return res.json({
         ok: true,
