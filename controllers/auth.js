@@ -1,18 +1,12 @@
 
 // Se agrega el tipado a response
-const {response} = require('express')
-const { validationResult } = require('express-validator')
+const { response } = require('express')
 
 // Se separa la logica del archivo de routes
 
  const crearUsuario = (req, res=response)=> {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()){
-        return res.status(400).json({
-            ok:false,
-            errors:errors.mapped()})
-    }
-         // Se capturan los datos del req.body
+ 
+       // Se capturan los datos del req.body
     const { name, email, password} = req.body
       // Retorna la respuesta como json
     return res.json({
@@ -22,12 +16,7 @@ const { validationResult } = require('express-validator')
 }
 
 const loginUsuario = ( req, res = response ) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()){
-        return res.status(400).json({
-            ok:false,
-            errors:errors.mapped()})
-    }
+
     // Se desctructura el req.body
     const { email, password } = req.body
     // Retorna la respuesta como json
