@@ -75,7 +75,7 @@ const loginUsuario = async ( req, res = response ) => {
         // Generar el JWT para esta seccion 
         const token= await generarJWT(usuarioDb.id, usuarioDb.nameUser)
 
-        // respuesta del servicio
+        // respuesta del servicio este paso no va se coloca solo para fines educactivos 
         return  res.json({
             ok:true,
             uid: usuarioDb.id,
