@@ -1,7 +1,8 @@
 
 // Se agrega el tipado a response
 const { response } = require('express');
-const Usuario = require('../models/Usuario');
+const Usuario      = require('../models/Usuario');
+const bcrypt       = require('bcryptjs');
 
 // Se separa la logica del archivo de routes
     // Se agrega el async para hacela una promesa y tlizar el await 
@@ -19,10 +20,12 @@ const Usuario = require('../models/Usuario');
             msg:'El email ya existe en la base de datos '
         });
     }
-    //Usuario con el modelo 
+        //Usuario con el modelo 
     const usuarioDb= new Usuario(req.body);
     
-    // Encriptar mediante Hash la contraseña
+        // Encriptar mediante Hash la contraseña
+    const salt = bcrypt.genSaltSync()
+    usuarioDb.password= bcrypt.hashSync(password,salt)
     
     // Generar el JsonWebToken
 
