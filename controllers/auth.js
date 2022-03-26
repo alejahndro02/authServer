@@ -1,8 +1,9 @@
 
 // Se agrega el tipado a response
-const { response } = require('express');
-const Usuario      = require('../models/Usuario');
-const bcrypt       = require('bcryptjs');
+const { response }   = require('express');
+const Usuario        = require('../models/Usuario');
+const bcrypt         = require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
 
 // Se separa la logica del archivo de routes
     // Se agrega el async para hacela una promesa y tlizar el await 
@@ -27,7 +28,8 @@ const bcrypt       = require('bcryptjs');
     const salt = bcrypt.genSaltSync()
     usuarioDb.password= bcrypt.hashSync(password,salt)
     
-    // Generar el JsonWebToken
+        // Generar el JsonWebToken
+    const token= await generarJWT(usuarioDb.id, nameUser)
 
         //Crear usuarion en la DB
     await usuarioDb.save()
@@ -36,6 +38,7 @@ const bcrypt       = require('bcryptjs');
             ok:true,
             uid:usuarioDb.id,
             nameUser,
+            token
         })
     } catch (error) {
         console.log(error);
