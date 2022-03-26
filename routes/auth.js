@@ -9,7 +9,7 @@ const router= Router();
 
     // Se crea nuevo usuario
 router.post('/new',[
-        check('name', 'El name es obligatorio').not().isEmpty(),        
+        check('nameUser', 'El name es obligatorio').not().isEmpty(),        
         check('email', 'El email es obligatorio').isEmail(),
         check('password', 'El password es obligatorio').isLength({min:6}),
         ValidarCampos   //Middleware personalizado 
