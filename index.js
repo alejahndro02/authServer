@@ -1,5 +1,6 @@
-const express = require ('express');
-const cors    = require('cors');
+const express          = require ('express');
+const cors             = require ('cors');
+const { dbConnection } = require ('./db/db');
 
     // Configuracion de dotenv
 require('dotenv').config()
@@ -9,6 +10,10 @@ const port = process.env.PORT;
 
     // Servicor Express
 const app = express()
+
+    // Conexion a la data base
+dbConnection()
+
 
     // Directorio publico
 app.use(express.static('public'))
