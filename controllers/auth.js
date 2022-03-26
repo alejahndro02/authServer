@@ -52,15 +52,45 @@ const { generarJWT } = require('../helpers/jwt');
 
 }
 
-const loginUsuario = ( req, res = response ) => {
+const loginUsuario = async ( req, res = response ) => {
 
-    // Se desctructura el req.body
+        // Se desctructura el req.body
     const { email, password } = req.body
-    // Retorna la respuesta como json
-    return res.json({
-        ok: true,
-        msg:'Login usuario /'
-    })
+    try {
+        const usuarioDb = await Usuario.findOne({email})
+        if(!usuarioDb){
+            return res.status(400).json({
+                ok: false,
+                msg:'El Email no concide'
+            })
+        }
+        // Confirmar si hace match 
+        const validPasword=bcrypt.compareSync(password, usuarioDb.password )
+        if(!validPasword){
+            return res.status(400).json({
+                ok: false,
+                msg:'La contraseña no coincide'
+            })
+        }
+        // Generar el JWT para esta seccion 
+        const token= await generarJWT(usuarioDb.id, usuarioDb.nameUser)
+
+        // respuesta del servicio
+        return  res.json({
+            ok:true,
+            uid: usuarioDb.id,
+            nameUser:usuarioDb.nameUser,
+            token
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            ok:false,
+            msg:"Hable con el admon"
+        })
+    }
+
 }
 const renovarToken= (req, res)=> {
     // Retorna la respuesta como json
