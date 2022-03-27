@@ -4,6 +4,7 @@ const { crearUsuario,
         loginUsuario, 
         renovarToken  } = require('../controllers/auth');
 const { ValidarCampos } = require('../middlewares/validar-campos');
+const { validarJWT    } = require('../middlewares/validar-token');
 
 const router= Router();
 
@@ -30,7 +31,8 @@ router.post('/',[
 
 
 // Validar y revalidar el token
-router.get('/newToken', renovarToken)
+    // Se agrega el midleWare personalzado de validar token como segundo argumento
+router.get('/newToken', validarJWT,renovarToken)
 
 // Forma de exortar 
 module.exports=router
