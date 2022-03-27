@@ -92,11 +92,17 @@ const loginUsuario = async ( req, res = response ) => {
     }
 
 }
-const renovarToken= (req, res)=> {
-    // Retorna la respuesta como json
+const renovarToken= async (req, res)=> {
+        //  Se recibe la informacion de del validator
+    const {uid, nameUser} = req
+        // Generar el JsonWebToken
+    const token= await generarJWT(uid, nameUser)
+        // Retorna la respuesta como json
     return res.json({
         ok: true,
-        msg:'Renew Usuario'
+        uid,
+        nameUser,
+        token
     })
 }
 module.exports = {
