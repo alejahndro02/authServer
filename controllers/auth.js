@@ -38,6 +38,7 @@ const { generarJWT } = require('../helpers/jwt');
             ok:true,
             uid:usuarioDb.id,
             nameUser,
+            email,
             token
         })
     } catch (error) {
@@ -80,6 +81,7 @@ const loginUsuario = async ( req, res = response ) => {
             ok:true,
             uid: usuarioDb.id,
             nameUser:usuarioDb.nameUser,
+            email:usuarioDb.email,
             token
         })
 
@@ -93,15 +95,20 @@ const loginUsuario = async ( req, res = response ) => {
 
 }
 const renovarToken= async (req, res)=> {
-        //  Se recibe la informacion de del validator
-    const {uid, nameUser} = req
-        // Generar el JsonWebToken
-    const token= await generarJWT(uid, nameUser)
-        // Retorna la respuesta como json
+    //  Se recibe la informacion de del validator
+    const {uid, } = req
+    // Se lee la base de datos para obtener el  email 
+    const dbUser= await Usuario.findById(uid);
+
+
+    // Generar el JsonWebToken
+    const token= await generarJWT(uid, dbUser.nameUser)
+    // Retorna la respuesta como json
     return res.json({
         ok: true,
         uid,
-        nameUser,
+        nameUser: dbUser.nameUser,
+        email:dbUser.email,
         token
     })
 }
