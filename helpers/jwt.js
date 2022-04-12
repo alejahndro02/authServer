@@ -8,7 +8,7 @@ const generarJWT = (uid, nameUser) =>{
     return new Promise((resolve, rejct)=>{
         
         jwt.sign(payload, secretKey,{
-            expiresIn:'1hr'
+            expiresIn:'24h'
         }, (err, token)=>{
             if(err){
                 console.log(err);
