@@ -1,5 +1,6 @@
 const express          = require ('express');
 const cors             = require ('cors');
+const path             = require ('path');
 const { dbConnection } = require ('./db/db');
 
     // Configuracion de dotenv
@@ -26,6 +27,11 @@ app.use(express.json());
 
     //Definicion de la ruta raiz, importando las rutas hijas desde auth.js
 app.use('/api/auth', require('./routes/auth'))
+
+// Manejar las rutas de angular
+app.get('*', (req, res) =>{
+    res.sendFile(path.resolve(__dirname, 'public/index.html'))
+})
 
  app.listen(port, () => {
      console.log(`Servidor corriendo por el puerto ${port}`);
